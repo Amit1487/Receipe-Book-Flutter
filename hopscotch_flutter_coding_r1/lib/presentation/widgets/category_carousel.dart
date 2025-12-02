@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
 import '../../domain/entities/category.dart';
 import '../providers/home_provider.dart';
 import '../screens/search_meals_screen.dart';
@@ -26,7 +27,7 @@ class _CategoryCarouselState extends ConsumerState<CategoryCarousel> {
         children: [
           // Title
           Text(
-            'Category',
+            AppStrings.categorySection,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
@@ -101,7 +102,7 @@ class _CategoryCarouselState extends ConsumerState<CategoryCarousel> {
       error: (error, stack) => Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
-          'Failed to load categories: $error',
+          AppStrings.failedToLoadCategories + error.toString(),
           style: TextStyle(color: Colors.red[700]),
         ),
       ),
@@ -134,7 +135,7 @@ class _CategoryCarouselState extends ConsumerState<CategoryCarousel> {
 
   void _navigateToCategory(BuildContext context, String categoryId) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Navigate to $categoryId category')),
+      SnackBar(content: Text(AppStrings.navigateToCategorySnackbar + categoryId + AppStrings.categoryLabel)),
     );
 
     Navigator.push(

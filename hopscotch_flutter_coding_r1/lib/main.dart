@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
 import 'presentation/screens/home_screen.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class RecipeBookApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Recipe Book',
+      title: AppStrings.appTitle,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.white,

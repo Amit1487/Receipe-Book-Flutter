@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
 
 
 class RandomMealCard extends StatelessWidget {
@@ -27,7 +28,7 @@ class RandomMealCard extends StatelessWidget {
         children: [
 
  Text(
-            'Star item of the day',
+            AppStrings.starItemOfTheDay,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -73,7 +74,7 @@ class RandomMealCard extends StatelessWidget {
           const SizedBox(height: 4),
           // 2nd line – grey
           Text(
-            'Classic recipe',
+            AppStrings.classicRecipe,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -84,7 +85,7 @@ class RandomMealCard extends StatelessWidget {
           const SizedBox(height: 2),
           // 3rd line – grey
           Text(
-            'Delicious and easy to make',
+            AppStrings.deliciousAndEasyToMake,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(

@@ -1,6 +1,7 @@
 // lib/presentation/screens/search_meals_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
 import '../providers/search_meals_provider.dart';
 import '../widgets/meal_grid_item.dart';
 import 'cooking_details_screen.dart';
@@ -37,7 +38,7 @@ class _SearchMealsScreenState extends ConsumerState<SearchMealsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Search Meals',
+          AppStrings.searchMealsTitle,
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: false,
@@ -53,7 +54,7 @@ class _SearchMealsScreenState extends ConsumerState<SearchMealsScreen> {
                   child: TextField(
                     controller: _controller,
                     decoration: const InputDecoration(
-                      hintText: 'Search meals',
+                      hintText: AppStrings.searchMealsHintText,
                       border: OutlineInputBorder(),
                       isDense: true,
                     ),
@@ -77,14 +78,14 @@ class _SearchMealsScreenState extends ConsumerState<SearchMealsScreen> {
               Expanded(
                 child: Center(
                   child: Text(
-                    'Something went wrong',
+                    AppStrings.somethingWentWrong,
                     style: TextStyle(color: Colors.red[700]),
                   ),
                 ),
               )
             else if (state.allMeals.isEmpty)
               const Expanded(
-                child: Center(child: Text('No results')),
+                child: Center(child: Text(AppStrings.noResults)),
               )
             else
               Expanded(
@@ -133,7 +134,7 @@ class _SearchMealsScreenState extends ConsumerState<SearchMealsScreen> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    'Load more',
+                                    AppStrings.loadMore,
                                     style: TextStyle(
                                       color: Colors.orange, // plain orange
                                     ),

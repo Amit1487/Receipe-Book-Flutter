@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
 
 import '../providers/home_provider.dart';
 import '../../domain/entities/meal.dart';
@@ -22,8 +23,8 @@ class CookingDetailsScreen extends ConsumerWidget {
         body: Center(child: CircularProgressIndicator()),
       ),
       error: (error, stack) => Scaffold(
-        appBar: AppBar(title: const Text('Cooking Details')),
-        body: const Center(child: Text('Failed to load details')),
+        appBar: AppBar(title: const Text(AppStrings.cookingDetailsTitle)),
+        body: const Center(child: Text(AppStrings.failedToLoadDetails)),
       ),
       data: (meals) {
         if (meals.isEmpty) {
@@ -50,7 +51,7 @@ class _CookingDetailsContent extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cooking Details'),
+        title: const Text(AppStrings.cookingDetailsTitle),
         centerTitle: false,
         backgroundColor: Colors.purple[200],
         foregroundColor: Colors.white,
@@ -96,12 +97,12 @@ class _CookingDetailsContent extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _LabelValueColumn(
-                        label: 'Type',
-                        value: meal.category ?? '-',
+                        label: AppStrings.typeLabel,
+                        value: meal.category ?? AppStrings.defaultValue,
                       ),
                       _LabelValueColumn(
-                        label: 'Cuisine',
-                        value: meal.area ?? '-',
+                        label: AppStrings.cuisineLabel,
+                        value: meal.area ?? AppStrings.defaultValue,
                       ),
                     ],
                   ),
@@ -110,7 +111,7 @@ class _CookingDetailsContent extends StatelessWidget {
 
                   // Ingredients title
                   Text(
-                    'Ingredients',
+                    AppStrings.ingredientsSection,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
@@ -144,7 +145,7 @@ class _CookingDetailsContent extends StatelessWidget {
 
                   // How to cook
                   Text(
-                    'How to cook',
+                    AppStrings.howToCookSection,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),

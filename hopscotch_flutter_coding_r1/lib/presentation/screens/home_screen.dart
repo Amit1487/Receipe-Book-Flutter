@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hopscotch_flutter_coding_r1/presentation/widgets/cuisine_grid.dart';
+import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
 import '../providers/home_provider.dart';
 import '../widgets/category_carousel.dart';
 import 'cooking_details_screen.dart';
@@ -27,7 +28,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Recipes',
+          AppStrings.homeScreenTitle,
           style: TextStyle(
             color: Colors.black87,
             fontWeight: FontWeight.w600,
@@ -47,7 +48,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Random Meals',
+                AppStrings.randomMealsSection,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -116,7 +117,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                         child: Text(
                                           meal.name.isNotEmpty
                                               ? meal.name
-                                              : 'No Name',
+                                              : AppStrings.noName,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 18,
@@ -168,7 +169,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   child: Center(
                       child: CircularProgressIndicator(color: Colors.red[700])),
                 ),
-                error: (error, stack) => Text('Failed to load meals: $error'),
+                error: (error, stack) => Text(AppStrings.failedToLoadMeals + error.toString()),
               ),
               const SizedBox(height: 20),
               const CategoryCarousel(),
@@ -196,7 +197,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     child: CircularProgressIndicator(color: Colors.red[700]),
                   ),
                 ),
-                error: (error, stack) => Text('Failed to load meals: $error'),
+                error: (error, stack) => Text(AppStrings.failedToLoadMeals + error.toString()),
               ),
               const CuisineGrid(),
               const SizedBox(height: 32),

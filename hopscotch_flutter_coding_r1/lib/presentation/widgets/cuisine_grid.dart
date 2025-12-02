@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hopscotch_flutter_coding_r1/core/di/providers.dart';
+import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
 import '../../domain/entities/cousine.dart';  // Fixed: cousine.dart
 import '../providers/home_provider.dart';
 
@@ -17,7 +18,7 @@ class CuisineGrid extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Cuisine',
+            AppStrings.cuisineSection,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.black87,
@@ -79,7 +80,7 @@ class CuisineGrid extends ConsumerWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4.0),
                         child: Text(
-                          cuisine.name.isNotEmpty ? cuisine.name : 'No Name',  // ← FIXED
+                          cuisine.name.isNotEmpty ? cuisine.name : AppStrings.noName,  // ← FIXED
                           style: const TextStyle(                       // ← FIXED
                             fontSize: 10,                                    // Increased from 8
                             fontWeight: FontWeight.w600,
@@ -110,7 +111,7 @@ class CuisineGrid extends ConsumerWidget {
       error: (error, stackTrace) => Padding(  // Fixed: Added stackTrace
         padding: const EdgeInsets.all(16.0),
         child: Text(
-          'Failed to load cuisine: $error',
+          AppStrings.failedToLoadCuisine + error.toString(),
           style: TextStyle(color: Colors.red[700]),
         ),
       ),
