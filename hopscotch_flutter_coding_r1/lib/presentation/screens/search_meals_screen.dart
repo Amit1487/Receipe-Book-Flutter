@@ -32,8 +32,20 @@ class _SearchMealsScreenState extends ConsumerState<SearchMealsScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(searchMealsNotifierProvider);
 
-    final visibleMeals = state.allMeals.take(state.visibleCount).toList();
-    final canLoadMore = state.allMeals.length > state.visibleCount;
+    final visibleCategory =
+        state.categoryList.take(state.visibleCountCategory).toList();
+    final canLoadMoreCategory =
+        state.categoryList.length > state.visibleCountCategory;
+
+    final visibleIngredient =
+        state.ingredientList.take(state.visibleCountIngredient).toList();
+    final canLoadMoreIngredient =
+        state.ingredientList.length > state.visibleCountIngredient;
+
+    final visibleCuisine =
+        state.cuisineList.take(state.visibleCountCuisine).toList();
+    final canLoadMoreCuisine =
+        state.cuisineList.length > state.visibleCountCuisine;
 
     return Scaffold(
       appBar: AppBar(
@@ -71,86 +83,230 @@ class _SearchMealsScreenState extends ConsumerState<SearchMealsScreen> {
             const SizedBox(height: 16),
 
             if (state.isLoading)
-              const Expanded(
-                child: Center(child: CircularProgressIndicator()),
-              )
-            else if (state.error != null)
-              Expanded(
-                child: Center(
-                  child: Text(
-                    AppStrings.somethingWentWrong,
-                    style: TextStyle(color: Colors.red[700]),
-                  ),
-                ),
-              )
-            else if (state.allMeals.isEmpty)
-              const Expanded(
-                child: Center(child: Text(AppStrings.noResults)),
-              )
-            else
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      // 2‑column grid
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.75,
-                          crossAxisSpacing: 12,
-                          mainAxisSpacing: 12,
+                      const Expanded(
+                        child: Center(child: CircularProgressIndicator()),
+                      )
+                    else if (state.error != null)
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            AppStrings.somethingWentWrong,
+                            style: TextStyle(color: Colors.red[700]),
+                          ),
                         ),
-                        itemCount: visibleMeals.length,
-                        itemBuilder: (context, index) {
-                          final meal = visibleMeals[index];
-                          return MealGridItem(
-                            meal: meal,
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) =>
-                                      CookingDetailsScreen(mealId: meal.id),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-
-                      if (canLoadMore)
+                      )
+                    else if (state.categoryList.isEmpty && state.ingredientList.isEmpty && state.cuisineList.isEmpty)
+                      const Expanded(
+                        child: Center(child: Text(AppStrings.noResults)),
+                      )
+                    else
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                      // Category section
+                      if (state.categoryList.isNotEmpty) ...[
                         Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () => ref
-                                .read(searchMealsNotifierProvider.notifier)
-                                .loadMore(),
-                            child: const Center(
-                             
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    AppStrings.loadMore,
-                                    style: TextStyle(
-                                      color: Colors.orange, // plain orange
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            AppStrings.categorySection,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.75,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                          ),
+                          itemCount: visibleCategory.length,
+                          itemBuilder: (context, index) {
+                            final meal = visibleCategory[index];
+                            return MealGridItem(
+                              meal: meal,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        CookingDetailsScreen(mealId: meal.id),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                        if (canLoadMoreCategory)
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () => ref
+                                  .read(searchMealsNotifierProvider.notifier)
+                                  .loadMoreCategory(),
+                              child: const Center(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      AppStrings.loadMore,
+                                      style: TextStyle(
+                                        color: Colors.orange,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(width: 4), // one small space
-                                  Icon(
-                                    Icons
-                                        .keyboard_arrow_down, // bottom arrow icon
-                                    size: 18,
-                                    color: Colors.orange,
-                                  ),
-                                ],
+                                    SizedBox(width: 4),
+                                    Icon(
+                                      Icons.keyboard_arrow_down,
+                                      size: 18,
+                                      color: Colors.orange,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
+                        const SizedBox(height: 20),
+                      ],
+
+                      // Ingredient section
+                      if (state.ingredientList.isNotEmpty) ...[
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Ingredients',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                         ),
+                        const SizedBox(height: 12),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.75,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                          ),
+                          itemCount: visibleIngredient.length,
+                          itemBuilder: (context, index) {
+                            final meal = visibleIngredient[index];
+                            return MealGridItem(
+                              meal: meal,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        CookingDetailsScreen(mealId: meal.id),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                        if (canLoadMoreIngredient)
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () => ref
+                                  .read(searchMealsNotifierProvider.notifier)
+                                  .loadMoreIngredient(),
+                              child: const Center(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      AppStrings.loadMore,
+                                      style: TextStyle(
+                                        color: Colors.orange,
+                                      ),
+                                    ),
+                                    SizedBox(width: 4),
+                                    Icon(
+                                      Icons.keyboard_arrow_down,
+                                      size: 18,
+                                      color: Colors.orange,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        const SizedBox(height: 20),
+                      ],
+
+                      // Cuisine section
+                      if (state.cuisineList.isNotEmpty) ...[
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            AppStrings.cuisineSection,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.75,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                          ),
+                          itemCount: visibleCuisine.length,
+                          itemBuilder: (context, index) {
+                            final meal = visibleCuisine[index];
+                            return MealGridItem(
+                              meal: meal,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        CookingDetailsScreen(mealId: meal.id),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                        if (canLoadMoreCuisine)
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () => ref
+                                  .read(searchMealsNotifierProvider.notifier)
+                                  .loadMoreCuisine(),
+                              child: const Center(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      AppStrings.loadMore,
+                                      style: TextStyle(
+                                        color: Colors.orange,
+                                      ),
+                                    ),
+                                    SizedBox(width: 4),
+                                    Icon(
+                                      Icons.keyboard_arrow_down,
+                                      size: 18,
+                                      color: Colors.orange,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        const SizedBox(height: 20),
+                      ],
                     ],
                   ),
                 ),

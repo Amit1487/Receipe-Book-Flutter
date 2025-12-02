@@ -12,6 +12,8 @@ abstract class AppStrings {
   static const String randomMealsSection = 'Random Meals';
   static const String noName = 'No Name';
   static const String failedToLoadMeals = 'Failed to load meals: ';
+  static const String tabHome = 'Home';
+  static const String tabSearch = 'Search';
 
   // ==================== Random Meal Card ====================
   static const String starItemOfTheDay = 'Star item of the day';

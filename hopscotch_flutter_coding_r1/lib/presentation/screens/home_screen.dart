@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hopscotch_flutter_coding_r1/presentation/widgets/cuisine_grid.dart';
 import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
+import 'search_meals_screen.dart';
 import '../providers/home_provider.dart';
 import '../widgets/category_carousel.dart';
 import 'cooking_details_screen.dart';
@@ -18,7 +19,8 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  int currentIndex = 0;
+  int carouselIndex = 0;
+  int _selectedTabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +153,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         enlargeCenterPage: false,
                         onPageChanged: (index, reason) {
                           setState(() {
-                            currentIndex = index;
+                            carouselIndex = index;
                           });
                         },
                       ),
@@ -159,8 +161,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                          6, (index) => _buildProgressDot(context, index)),
+                      children:
+                          List.generate(6, (index) => _buildProgressDot(context, index)),
                     ),
                   ],
                 ),
@@ -205,6 +207,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedTabIndex,
+        onTap: (index) {
+          if (index == 0) {
+            // stay on home
+            setState(() {
+              _selectedTabIndex = 0;
+            });
+          } else if (index == 1) {
+            // Navigate to Search screen
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const SearchMealsScreen()),
+            );
+            // keep selected index as home to preserve home flow unless user returns
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: AppStrings.tabHome,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: AppStrings.tabSearch,
+          ),
+        ],
+      ),
     );
   }
 
@@ -212,12 +242,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       margin: const EdgeInsets.symmetric(horizontal: 4),
-      width: currentIndex == index ? 24 : 8,
+      width: carouselIndex == index ? 24 : 8,
       height: 8,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: currentIndex == index ? Colors.red[700]! : Colors.grey[400]!,
-        boxShadow: currentIndex == index
+        color: carouselIndex == index ? Colors.red[700]! : Colors.grey[400]!,
+        boxShadow: carouselIndex == index
             ? [
                 BoxShadow(
                     color: Colors.red[700]!.withOpacity(0.4),

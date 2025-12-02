@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hopscotch_flutter_coding_r1/core/di/providers.dart';
+import '../screens/filtered_meals_screen.dart';
 import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
 import '../../domain/entities/cousine.dart';  // Fixed: cousine.dart
 import '../providers/home_provider.dart';
@@ -39,7 +40,7 @@ class CuisineGrid extends ConsumerWidget {
             itemBuilder: (context, index) {
               final cuisine = cuisines[index];
               return GestureDetector(
-                onTap: () => _navigateToDetails(context, cuisine.id),
+                onTap: () => _navigateToDetails(context, cuisine.name),
                 child: Column(
                   children: [
                     // Fixed: Circle image with proper clipping
@@ -119,6 +120,16 @@ class CuisineGrid extends ConsumerWidget {
   }
 
   void _navigateToDetails(BuildContext context, String cuisineId) {
-    // TODO: Implement navigation
+    final query = cuisineId;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => FilteredMealsScreen(
+          query: query,
+          filterType: FilterType.cuisine,
+          title: query,
+        ),
+      ),
+    );
   }
 }

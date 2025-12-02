@@ -1,10 +1,16 @@
 # hopscotch_flutter_coding_r1
 
-Refactoring required for - String to be extracted, font size, font weight to be extracted.
+A new Flutter project.
 
-Remove unwanted comments.
+## Getting Started
 
-Yet to test in Web and mWeb, IOS
+This project is a starting point for a Flutter application.
 
-Unit Testing and Code-Coverage
+A few resources to get you started if this is your first Flutter project:
 
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

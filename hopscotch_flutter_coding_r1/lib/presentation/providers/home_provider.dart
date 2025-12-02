@@ -5,6 +5,9 @@ import '../../domain/usecases/get_meal_details.dart';
 import '../../domain/usecases/get_random_meals.dart';
 import '../../domain/usecases/get_categories.dart';
 import '../../domain/usecases/get_cuisine.dart';
+import '../../domain/usecases/filter_by_category.dart';
+import '../../domain/usecases/filter_by_ingredient.dart';
+import '../../domain/usecases/filter_by_country.dart';
 import '../../../domain/entities/meal.dart';
 import '../../../domain/entities/category.dart';
 import '../../../core/di/providers.dart';
@@ -48,6 +51,14 @@ Future<List<MealEntity>> mealDetails(Ref ref, String mealId) async {
 @riverpod
 Future<SearchMealsNotifier> search(Ref ref, String mealId) async {
  final repo = ref.read(mealRepositoryProvider);
-  final usecase = SearchMeals(repo);
-  return SearchMealsNotifier(usecase);
+  final searchUsecase = SearchMeals(repo);
+  final filterByCategory = FilterByCategory(repo);
+  final filterByIngredient = FilterByIngredient(repo);
+  final filterByCountry = FilterByCountry(repo);
+  return SearchMealsNotifier(
+    searchUsecase,
+    filterByCategory,
+    filterByIngredient,
+    filterByCountry,
+  );
 }

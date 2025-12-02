@@ -68,15 +68,47 @@ class MealRepositoryImpl implements MealRepository {
   }
 
   @override
-  Future<List<CousinEntity>> getMealsByCountry(String category) async {
-    final response = await _apiService.getMealsByCountry(category);
+  Future<List<MealEntity>> getMealsByCountry(String country) async {
+    final response = await _apiService.getMealsByCountry(country);
     final data = response.data as Map<String, dynamic>;
-    print(" getMealsByCountry  categiry is $category is $data ");
+    print("getMealsByCountry country=$country response=$data");
     final meals = (data['meals'] as List)
         .map((json) => MealModel.fromJson(json))
         .toList();
     return meals
-        .map((model) => CousinEntity(
+        .map((model) => MealEntity(
+              id: model.id,
+              name: model.name,
+              imageUrl: model.imageUrl,
+            ))
+        .toList();
+  }
+
+  @override
+  Future<List<MealEntity>> getMealsByCategory(String category) async {
+    final response = await _apiService.getMealsByCategory(category);
+    final data = response.data as Map<String, dynamic>;
+    final meals = (data['meals'] as List)
+        .map((json) => MealModel.fromJson(json))
+        .toList();
+    return meals
+        .map((model) => MealEntity(
+              id: model.id,
+              name: model.name,
+              imageUrl: model.imageUrl,
+            ))
+        .toList();
+  }
+
+  @override
+  Future<List<MealEntity>> getMealsByIngredient(String ingredient) async {
+    final response = await _apiService.getMealsByIngredient(ingredient);
+    final data = response.data as Map<String, dynamic>;
+    final meals = (data['meals'] as List)
+        .map((json) => MealModel.fromJson(json))
+        .toList();
+    return meals
+        .map((model) => MealEntity(
               id: model.id,
               name: model.name,
               imageUrl: model.imageUrl,

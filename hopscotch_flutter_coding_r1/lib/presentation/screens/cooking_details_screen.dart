@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
+import 'package:hopscotch_flutter_coding_r1/presentation/screens/filtered_meals_screen.dart';
 
 import '../providers/home_provider.dart';
 import '../../domain/entities/meal.dart';
@@ -137,6 +138,18 @@ class _CookingDetailsContent extends StatelessWidget {
                       return _IngredientItem(
                         name: name,
                         measure: measure,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => FilteredMealsScreen(
+                                query: name,
+                                filterType: FilterType.ingredient,
+                                title: name,
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                   ),
@@ -201,44 +214,49 @@ class _LabelValueColumn extends StatelessWidget {
 class _IngredientItem extends StatelessWidget {
   final String name;
   final String measure;
+  final VoidCallback? onTap;
 
   const _IngredientItem({
     Key? key,
     required this.name,
     required this.measure,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Placeholder circle for ingredient icon (you can later change to real images)
-        Container(
-          width: 56,
-          height: 56,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.orange[50],
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          // Placeholder circle for ingredient icon (you can later change to real images)
+          Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.orange[50],
+            ),
+            child: const Icon(Icons.restaurant, color: Colors.orange),
           ),
-          child: const Icon(Icons.restaurant, color: Colors.orange),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          name,
-          textAlign: TextAlign.center,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
-        ),
-        if (measure.isNotEmpty) ...[
-          const SizedBox(height: 2),
+          const SizedBox(height: 6),
           Text(
-            measure,
+            name,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 10, color: Colors.grey),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
           ),
+          if (measure.isNotEmpty) ...[
+            const SizedBox(height: 2),
+            Text(
+              measure,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 10, color: Colors.grey),
+            ),
+          ],
         ],
-      ],
+      ),
     );
   }
 }

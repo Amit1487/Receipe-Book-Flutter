@@ -5,7 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
 import '../../domain/entities/category.dart';
 import '../providers/home_provider.dart';
-import '../screens/search_meals_screen.dart';
+import '../screens/filtered_meals_screen.dart';
 
 class CategoryCarousel extends ConsumerStatefulWidget {
   const CategoryCarousel({Key? key}) : super(key: key);
@@ -56,7 +56,7 @@ class _CategoryCarouselState extends ConsumerState<CategoryCarousel> {
                       return CategoryItem(
                         category: categories[categoryIndex],
                         onTap: () => _navigateToCategory(
-                            context, categories[categoryIndex].id),
+                            context, categories[categoryIndex].name),
                       );
                     } else {
                       return const SizedBox(); // Empty grid slot
@@ -134,14 +134,19 @@ class _CategoryCarouselState extends ConsumerState<CategoryCarousel> {
   // }
 
   void _navigateToCategory(BuildContext context, String categoryId) {
+    final query = categoryId;
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(AppStrings.navigateToCategorySnackbar + categoryId + AppStrings.categoryLabel)),
+      SnackBar(content: Text(AppStrings.navigateToCategorySnackbar + query + AppStrings.categoryLabel)),
     );
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const SearchMealsScreen(),
+        builder: (_) => FilteredMealsScreen(
+          query: query,
+          filterType: FilterType.category,
+          title: query,
+        ),
       ),
     );
   }
