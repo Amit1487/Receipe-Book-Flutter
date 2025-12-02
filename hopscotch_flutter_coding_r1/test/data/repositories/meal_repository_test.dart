@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
-import 'package:hopscotch_flutter_coding_r1/core/network/api_service.dart';
 import 'package:hopscotch_flutter_coding_r1/data/repositories/meal_repository_impl.dart';
 import '../../fixtures/meal_fixtures.dart';
 import '../../mocks/mocks.dart';

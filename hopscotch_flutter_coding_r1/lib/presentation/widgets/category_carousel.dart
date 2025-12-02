@@ -35,9 +35,8 @@ class _CategoryCarouselState extends ConsumerState<CategoryCarousel> {
           ),
           const SizedBox(height: 16),
 
-          // 3x3 Grid that scrolls horizontally
           SizedBox(
-            height: 350, // Fixed height for 3 rows
+            height: 350,
             child: CarouselSlider.builder(
               itemCount: (categories.length / 9).ceil(), // Pages for 3x3 grid
               itemBuilder: (context, pageIndex, _) {
@@ -79,15 +78,7 @@ class _CategoryCarouselState extends ConsumerState<CategoryCarousel> {
             ),
           ),
 
-          // const SizedBox(height: 16),
-          // Progress dots for grid pages
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: List.generate(
-          //     (categories.length / 9).ceil(),
-          //     (index) => _buildCategoryDot(context, index),
-          //   ),
-          // ),
+          // progress dots intentionally omitted
         ],
       ),
       loading: () => const SizedBox(

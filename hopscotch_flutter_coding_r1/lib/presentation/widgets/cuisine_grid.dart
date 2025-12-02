@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:hopscotch_flutter_coding_r1/core/di/providers.dart';
 import '../screens/filtered_meals_screen.dart';
 import 'package:hopscotch_flutter_coding_r1/core/constants/app_strings.dart';
-import '../../domain/entities/cousine.dart';  // Fixed: cousine.dart
 import '../providers/home_provider.dart';
 
 class CuisineGrid extends ConsumerWidget {
@@ -12,7 +10,7 @@ class CuisineGrid extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cuisineMealsAsync = ref.watch(cousineProvider); // Fixed provider name
+    final cuisineMealsAsync = ref.watch(cousineProvider);
 
     return cuisineMealsAsync.when(
       data: (cuisines) => Column(
@@ -26,7 +24,7 @@ class CuisineGrid extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -43,7 +41,6 @@ class CuisineGrid extends ConsumerWidget {
                 onTap: () => _navigateToDetails(context, cuisine.name),
                 child: Column(
                   children: [
-                    // Fixed: Circle image with proper clipping
                     ClipOval(
                       child: SizedBox(
                         width: 50,  // Fixed size for circle
@@ -76,18 +73,17 @@ class CuisineGrid extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 6),
-                    // Fixed: Proper text container with null safety
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4.0),
                         child: Text(
-                          cuisine.name.isNotEmpty ? cuisine.name : AppStrings.noName,  // ← FIXED
-                          style: const TextStyle(                       // ← FIXED
-                            fontSize: 10,                                    // Increased from 8
+                          cuisine.name.isNotEmpty ? cuisine.name : AppStrings.noName,
+                          style: const TextStyle(
+                            fontSize: 10,
                             fontWeight: FontWeight.w600,
                             color: Color(0xFF212121),
                           ),
-                          textAlign: TextAlign.center,                         // ← ADDED
+                          textAlign: TextAlign.center,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -109,7 +105,7 @@ class CuisineGrid extends ConsumerWidget {
           ),
         ),
       ),
-      error: (error, stackTrace) => Padding(  // Fixed: Added stackTrace
+      error: (error, stackTrace) => Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
           AppStrings.failedToLoadCuisine + error.toString(),

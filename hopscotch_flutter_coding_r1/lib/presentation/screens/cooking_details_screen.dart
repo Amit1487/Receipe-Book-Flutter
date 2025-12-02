@@ -11,9 +11,9 @@ class CookingDetailsScreen extends ConsumerWidget {
   final String mealId;
 
   const CookingDetailsScreen({
-    Key? key,
+    super.key,
     required this.mealId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,8 +42,7 @@ class CookingDetailsScreen extends ConsumerWidget {
 class _CookingDetailsContent extends StatelessWidget {
   final MealEntity meal;
 
-  const _CookingDetailsContent({Key? key, required this.meal})
-      : super(key: key);
+  const _CookingDetailsContent({super.key, required this.meal});
 
   @override
   Widget build(BuildContext context) {
@@ -186,10 +185,10 @@ class _LabelValueColumn extends StatelessWidget {
   final String value;
 
   const _LabelValueColumn({
-    Key? key,
+    super.key,
     required this.label,
     required this.value,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -217,11 +216,11 @@ class _IngredientItem extends StatelessWidget {
   final VoidCallback? onTap;
 
   const _IngredientItem({
-    Key? key,
+    super.key,
     required this.name,
     required this.measure,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

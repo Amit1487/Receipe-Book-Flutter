@@ -14,11 +14,11 @@ class FilteredMealsScreen extends ConsumerStatefulWidget {
   final String? title;
 
   const FilteredMealsScreen({
-    Key? key,
+    super.key,
     required this.query,
     required this.filterType,
     this.title,
-  }) : super(key: key);
+  });
 
   @override
   ConsumerState<FilteredMealsScreen> createState() =>

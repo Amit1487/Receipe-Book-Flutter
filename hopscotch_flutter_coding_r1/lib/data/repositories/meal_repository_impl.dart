@@ -1,6 +1,6 @@
-import 'package:dio/dio.dart';
-import 'package:hopscotch_flutter_coding_r1/domain/entities/cousine.dart';
+// Removed unused imports
 import '../../core/network/api_service.dart';
+import 'dart:developer' as developer;
 import '../../domain/entities/meal.dart';
 import '../../../domain/entities/category.dart';
 import '../../domain/repositories/meal_repository.dart';
@@ -17,7 +17,7 @@ class MealRepositoryImpl implements MealRepository {
   Future<List<MealEntity>> getRandomMeals() async {
     final response = await _apiService.getRandomMeals();
     final data = response.data as Map<String, dynamic>;
-    print("printing data  size is ${data.length} for meal api ${data}");
+    developer.log('printing data size is ${data.length} for meal api $data', name: 'MealRepositoryImpl');
     final meals = (data['meals'] as List)
         .map((json) => MealModel.fromJson(json))
         .toList();
@@ -50,7 +50,7 @@ class MealRepositoryImpl implements MealRepository {
   Future<List<MealEntity>> getMealDetails(String id) async {
     final response = await _apiService.getMealDetails(id);
     final data = response.data as Map<String, dynamic>;
-    print("printing data  size is ${data.length} for meal api ${data}");
+    developer.log('printing data size is ${data.length} for meal api $data', name: 'MealRepositoryImpl');
     final meals = (data['meals'] as List)
         .map((json) => MealDetailsModel.fromJson(json))
         .toList();
@@ -71,7 +71,7 @@ class MealRepositoryImpl implements MealRepository {
   Future<List<MealEntity>> getMealsByCountry(String country) async {
     final response = await _apiService.getMealsByCountry(country);
     final data = response.data as Map<String, dynamic>;
-    print("getMealsByCountry country=$country response=$data");
+    developer.log('getMealsByCountry country=$country response=$data', name: 'MealRepositoryImpl');
     final meals = (data['meals'] as List)
         .map((json) => MealModel.fromJson(json))
         .toList();
@@ -135,7 +135,7 @@ class MealRepositoryImpl implements MealRepository {
 
   @override
   Future<List<MealEntity>> getCountries() async {
-    final response = await _apiService.getCountries();
+    await _apiService.getCountries();
     // Implement countries parsing
     return [];
   }

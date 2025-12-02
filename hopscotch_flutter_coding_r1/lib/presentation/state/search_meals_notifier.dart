@@ -1,20 +1,17 @@
 // lib/presentation/state/search_meals_notifier.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entities/meal.dart';
-import '../../domain/usecases/search_meals.dart';
 import '../../domain/usecases/filter_by_category.dart';
 import '../../domain/usecases/filter_by_ingredient.dart';
 import '../../domain/usecases/filter_by_country.dart';
 import 'search_meals_state.dart';
 
 class SearchMealsNotifier extends StateNotifier<SearchMealsState> {
-  final SearchMeals _searchMeals;
   final FilterByCategory _filterByCategory;
   final FilterByIngredient _filterByIngredient;
   final FilterByCountry _filterByCountry;
 
   SearchMealsNotifier(
-    this._searchMeals,
     this._filterByCategory,
     this._filterByIngredient,
     this._filterByCountry,

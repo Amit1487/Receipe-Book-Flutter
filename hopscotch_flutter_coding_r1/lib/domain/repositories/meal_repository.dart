@@ -1,7 +1,6 @@
 import 'package:hopscotch_flutter_coding_r1/domain/entities/category.dart';
 
 import '../entities/meal.dart';
-import '../entities/cousine.dart';
 
 abstract class MealRepository {
   Future<List<MealEntity>> getRandomMeals();

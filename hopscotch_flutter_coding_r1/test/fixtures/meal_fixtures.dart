@@ -2,8 +2,7 @@ import 'package:hopscotch_flutter_coding_r1/domain/entities/meal.dart';
 import 'package:hopscotch_flutter_coding_r1/domain/entities/category.dart';
 import 'package:hopscotch_flutter_coding_r1/domain/entities/cousine.dart';
 import 'package:hopscotch_flutter_coding_r1/data/models/meal_model.dart';
-import 'package:hopscotch_flutter_coding_r1/data/models/meal_details_model.dart';
-import 'package:hopscotch_flutter_coding_r1/data/models/category_model.dart';
+// Removed unused model imports
 
 /// Test fixtures for meal-related entities and models
 class MealFixtures {

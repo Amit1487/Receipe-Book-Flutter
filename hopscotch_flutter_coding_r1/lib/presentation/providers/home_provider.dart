@@ -11,7 +11,6 @@ import '../../domain/usecases/filter_by_country.dart';
 import '../../../domain/entities/meal.dart';
 import '../../../domain/entities/category.dart';
 import '../../../core/di/providers.dart';
-import '../../domain/usecases/search_meals.dart';
 import '../state/search_meals_notifier.dart';
 
 part 'home_provider.g.dart';
@@ -50,13 +49,11 @@ Future<List<MealEntity>> mealDetails(Ref ref, String mealId) async {
 
 @riverpod
 Future<SearchMealsNotifier> search(Ref ref, String mealId) async {
- final repo = ref.read(mealRepositoryProvider);
-  final searchUsecase = SearchMeals(repo);
+  final repo = ref.read(mealRepositoryProvider);
   final filterByCategory = FilterByCategory(repo);
   final filterByIngredient = FilterByIngredient(repo);
   final filterByCountry = FilterByCountry(repo);
   return SearchMealsNotifier(
-    searchUsecase,
     filterByCategory,
     filterByIngredient,
     filterByCountry,
